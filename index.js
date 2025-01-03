@@ -30,6 +30,9 @@ const Task = mongoose.model('Task', taskSchema,'Tasks');
 // Routes
 
 // Fetch all tasks
+app.get("", (req, res)=>{
+    return res.send("Hello");
+})
 app.get('/tasks', async (req, res) => {
   try {
     const tasks = await Task.find();
