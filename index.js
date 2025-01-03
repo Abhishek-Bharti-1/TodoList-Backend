@@ -36,7 +36,9 @@ app.get("", (req, res)=>{
 app.get('/tasks', async (req, res) => {
   try {
     const tasks = await Task.find();
-    return res.json(tasks);
+    return res.json({
+        data:tasks
+    });
   } catch (err) {
     res.status(500).json({ error: 'Error fetching tasks' });
   }
