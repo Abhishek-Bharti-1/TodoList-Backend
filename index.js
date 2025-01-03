@@ -46,23 +46,23 @@ app.get('/tasks', async (req, res) => {
 
 // Add a new task
 app.post('/tasks', async (req, res) => {
-  const { title } = req.body;
-
-  if (!title) {
-    return res.status(400).json({ error: 'Task title is required' });
-  }
-
-  try {
-    const newTask = new Task({
-      _id: new Date().toISOString(), // Generate ID based on timestamp
-      title,
-    });
-    await newTask.save();
-    res.status(201).json(newTask);
-  } catch (err) {
-    res.status(500).json({ error: 'Error adding task' });
-  }
-});
+    const { id, title } = req.body;
+  
+    if (!id || !title) {
+      return res.status(400).json({ error: 'Task ID and title are required' });
+    }
+  
+    try {
+      const newTask = new Task({
+        _id: id, // Use the provided ID from the client
+        title,
+      });
+      await newTask.save();
+      res.status(201).json(newTask);
+    } catch (err) {
+      res.status(500).json({ error: 'Error adding task' });
+    }
+  });
 
 // Delete a task by ID
 app.delete('/tasks/:id', async (req, res) => {
